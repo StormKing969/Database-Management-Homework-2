@@ -1,0 +1,138 @@
+Script started on Tue 09 Oct 2018 07:37:54 PM EDT
+wasajana@pe07:~/cs630/hw2$ sqlplus wasajana/wasajana@//dbs3.cs.umb.edu/dbs3
+
+SQL*Plus: Release 12.1.0.2.0 Production on Tue Oct 9 19:38:22 2018
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Last Successful login time: Tue Oct 09 2018 19:18:31 -04:00
+
+Connected to:
+Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+
+SQL> set echo on
+SQL> @problem7.sql
+SQL> --[5.4 part1]
+SQL> 
+SQL> SELECT DISTINCT e.ename, e.age
+  2  FROM emp e, works w, dept d
+  3  WHERE w.did=d.did AND e.eid=w.eid AND d.dname='Software' AND e.eid IN (
+  4  	     SELECT w2.eid
+  5  	     FROM works w2, dept d2
+  6  	     WHERE d2.dname='Hardware' AND w2.did=d2.did
+  7  	 );
+
+ENAME				      AGE
+------------------------------ ----------
+Mary Johnson			       44
+Stanley Browne			       23
+
+SQL> 
+SQL> --[5.4 part3]
+SQL> 
+SQL> SELECT DISTINCT e.ename
+  2  FROM emp e, works w, dept d
+  3  WHERE e.salary > ALL (
+  4  	     SELECT MAX(d2.budget)
+  5  	     FROM dept d2
+  6  	     WHERE d2.did=d.did
+  7  );
+
+ENAME
+------------------------------
+David Anderson
+Daniel Lee
+Lisa Walker
+Ann Mitchell
+Gim Rogers
+Robert Brown
+Gene Edwards
+Dorthy Lewis
+Scott Bell
+Eric Cooper
+Harry Watson
+
+ENAME
+------------------------------
+Angela Martinez
+Linda Davis
+Trey Phillips
+Juan Rodriguez
+Louis Jenkins
+Mark Coleman
+Daniel Evans
+Matt Nelson
+Maria White
+Tom Murphy
+Milo Brooks
+
+ENAME
+------------------------------
+Dorthy Howard
+Chad Stewart
+William Ward
+Thomas Robinson
+Richard Jackson
+Gil Richardson
+Lisa Gray
+Rick Carter
+Christopher Garcia
+William Moore
+Haywood Kelly
+
+ENAME
+------------------------------
+Steven Green
+Mark Young
+Patricia Jones
+Barbara Wilson
+Michael Miller
+James Smith
+Jennifer Thomas
+Luis Hernandez
+Karen Scott
+Ana Lopez
+John Williams
+
+ENAME
+------------------------------
+Mary Johnson
+Edward Baker
+Stanley Browne
+Margaret Clark
+Elizabeth Taylor
+Betty Adams
+George Wright
+Susan Martin
+Donald King
+Charles Harris
+Paul Hall
+
+ENAME
+------------------------------
+Joseph Thompson
+Nancy Allen
+Kenneth Hill
+Eric Collins
+
+59 rows selected.
+
+SQL> 
+SQL> --[5.4 part6]
+SQL> 
+SQL> SELECT DISTINCT d.managerid
+  2  FROM dept d
+  3  GROUP BY d.managerid HAVING SUM(d.budget) > 5000000;
+
+ MANAGERID
+----------
+ 578875478
+
+SQL> exit
+Disconnected from Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+wasajana@pe07:~/cs630/hw2$ exit
+exit
+
+Script done on Tue 09 Oct 2018 07:38:41 PM EDT

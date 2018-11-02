@@ -1,0 +1,92 @@
+Script started on Tue 09 Oct 2018 06:14:41 PM EDT
+wasajana@pe07:~/cs630/hw2$ sqlplus wasajana/wasajana@//dbs3.cs.umb.edu/dbs3
+
+SQL*Plus: Release 12.1.0.2.0 Production on Tue Oct 9 18:15:16 2018
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Last Successful login time: Tue Oct 09 2018 17:55:08 -04:00
+
+Connected to:
+Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+
+SQL> set echo on
+SQL> @problem5.sql
+SQL> --[5.2 part1]
+SQL> 
+SQL> SELECT DISTINCT p.pname
+  2  FROM parts p, suppliers s, catalog c
+  3  WHERE p.pid = c.pid AND s.sid = c.sid;
+
+PNAME
+----------------------------------------
+Acme Widget Washer
+Fire Hydrant Cap
+Anti-Gravity Turbine Generator
+7 Segment Display
+I Brake for Crop Circles Sticker
+Left Handed Bacon Stretcher Cover
+Smoke Shifter End
+
+7 rows selected.
+
+SQL> 
+SQL> --[5.2 part4]
+SQL> 
+SQL> SELECT DISTINCT
+  2  	     p.pname
+  3  FROM
+  4  	     parts p, suppliers s, catalog c
+  5  WHERE
+  6  	     s.sname='Acme Widget Suppliers' AND c.pid=p.pid AND c.sid=s.sid AND NOT EXISTS (
+  7  		     SELECT *
+  8  		     FROM catalog d, suppliers f
+  9  		     WHERE p.pid = d.pid AND d.sid = f.sid AND f.sname <> 'Acme Widget Suppliers'
+ 10  	     );
+
+PNAME
+----------------------------------------
+Acme Widget Washer
+Anti-Gravity Turbine Generator
+Smoke Shifter End
+
+SQL> 
+SQL> 
+SQL> --[5.2 part5]
+SQL> 
+SQL> SELECT DISTINCT c.sid
+  2  FROM suppliers s, catalog c
+  3  WHERE c.sid = s.sid AND c.cost > ALL (
+  4  	     SELECT AVG(c1.cost)
+  5  	     FROM catalog c1, suppliers s1
+  6  	     WHERE c1.sid = s1.sid
+  7  );
+
+       SID
+----------
+	 1
+	 4
+
+SQL> 
+SQL> 
+SQL> --[5.2 part7]
+SQL> 
+SQL> SELECT DISTINCT s.sid
+  2  FROM suppliers s, catalog c, parts p
+  3  WHERE p.color='Red' AND s.sid = c.sid AND p.pid = c.pid;
+
+       SID
+----------
+	 1
+	 2
+	 4
+	 3
+
+SQL> exit
+Disconnected from Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+wasajana@pe07:~/cs630/hw2$ exit
+exit
+
+Script done on Tue 09 Oct 2018 06:15:37 PM EDT

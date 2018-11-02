@@ -1,0 +1,137 @@
+Script started on Tue 09 Oct 2018 04:20:31 PM EDT
+wasajana@pe07:~/cs630/hw2$ sqlplus wasajana/wasajana@//dbs3.cs.umb.edu/dbs3
+
+SQL*Plus: Release 12.1.0.2.0 Production on Tue Oct 9 16:21:04 2018
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Last Successful login time: Tue Oct 09 2018 16:01:00 -04:00
+
+Connected to:
+Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+
+SQL> set echo on
+SQL> @problem4.sql
+SQL> --CS 630 hw 2 Solutions: Problem 4.3 of R&G
+SQL> --Jinghui Zhou	(student name)
+SQL> --start up script on topcat or pe07
+SQL> --connect to dbs3 using sqlplus
+SQL> --use "set echo on", then run this by "@problem4.sql"
+SQL> --exit from sqlplus, then exit again to finish typescript
+SQL> --"mv typescript problem4.txt" to rename it for delivery
+SQL> -- Note: all-caps for SQL keywords is not needed
+SQL> -- But we need to capitalize color names in table parts to match data
+SQL> --[4.3 part1] Find the names of suppliers who supply some red part.
+SQL> SELECT DISTINCT s.sname
+  2  FROM suppliers s, parts p, catalog c
+  3  WHERE p.color='Red' AND c.pid=p.pid AND c.sid=s.sid;
+
+SNAME
+------------------------------
+Perfunctory Parts
+Big Red Tool and Die
+Acme Widget Suppliers
+Alien Aircaft Inc.
+
+SQL> 
+SQL> --[4.3 part2]
+SQL> 
+SQL> SELECT DISTINCT s.sid
+  2  FROM suppliers s, parts p, catalog c
+  3  WHERE p.color='Red' OR p.color='Green' AND c.pid=p.pid AND c.sid=s.sid;
+
+       SID
+----------
+	 1
+	 2
+	 4
+	 3
+
+SQL> 
+SQL> --[4.3 part3]
+SQL> 
+SQL> SELECT DISTINCT s.sid
+  2  FROM suppliers s, parts p, catalog c
+  3  WHERE p.color='Red' OR s.address='221 Packer Ave' AND c.pid=p.pid AND c.sid=s.sid;
+
+       SID
+----------
+	 1
+	 2
+	 4
+	 3
+
+SQL> 
+SQL> --[4.3 part4]
+SQL> 
+SQL> SELECT DISTINCT s.sid
+  2  FROM suppliers s, parts p, catalog c
+  3  WHERE p.color='Red' AND c.pid=p.pid AND c.sid=s.sid
+  4  INTERSECT
+  5  SELECT DISTINCT s.sid
+  6  FROM suppliers s, parts p, catalog c
+  7  WHERE p.color='Green' AND c.pid=p.pid AND c.sid=s.sid;
+
+       SID
+----------
+	 1
+	 3
+
+SQL> 
+SQL> --[4.3 part9]
+SQL> 
+SQL> SELECT DISTINCT s.sid, c.sid
+  2  FROM catalog s, catalog c
+  3  WHERE s.pid = c.pid AND s.sid != c.sid AND s.cost > c.cost;
+
+       SID	  SID
+---------- ----------
+	 4	    1
+	 1	    2
+	 3	    1
+	 4	    2
+	 1	    3
+	 3	    2
+	 4	    3
+
+7 rows selected.
+
+SQL> 
+SQL> --[4.3 part10]
+SQL> 
+SQL> SELECT DISTINCT c.pid
+  2  FROM catalog c CROSS JOIN catalog s
+  3  WHERE c.sid != s.sid AND c.pid = s.pid;
+
+       PID
+----------
+	 1
+	 4
+	 5
+	 8
+	 7
+	 9
+
+6 rows selected.
+
+SQL> 
+SQL> --[4.3 part11]
+SQL> 
+SQL> SELECT DISTINCT c.pid
+  2  FROM suppliers s, catalog c
+  3  WHERE s.sname='Yosemite Sham' AND c.sid = s.sid
+  4  INTERSECT
+  5  SELECT DISTINCT MAX(c.cost)
+  6  FROM suppliers s, catalog c
+  7  WHERE s.sname='Yosemite Sham' AND c.sid = s.sid;
+
+no rows selected
+
+SQL> exit
+Disconnected from Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+wasajana@pe07:~/cs630/hw2$ exit
+exit
+
+Script done on Tue 09 Oct 2018 04:21:33 PM EDT

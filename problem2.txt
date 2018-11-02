@@ -1,0 +1,66 @@
+1)
+
+CREATE TABLE Works (
+	eid INTEGER NOT NULL,
+	did INTEGER NOT NULL,
+	pct_time INTEGER,
+	PRIMARY KEY (eid, did)
+	UNIQUE  (eid),
+	FOREIGN KEY (did) REFERENCES Dept
+)
+
+When a user tries to delete a tuple from Dept, we can also delete all the "works" tuples that references to it.
+
+2)
+
+CREATE TABLE Emp (
+	eid INTEGER
+	ename Char(100)
+	age INTEGER
+	salary REAL
+	PRIMARY KEY (eid)
+)
+
+CREATE TABLE Works (
+	eid INTEGER
+	did INTEGER
+	pct_time INTEGER
+	PRIMARY KEY (eid, did)
+	FOREIGN KEY (did) REFERENCES Dept
+	FOREIGN KEY (eid) REFERENCES Emp
+)
+
+CREATE TABLE Dept (
+	did INTEGER
+	budget REAL
+	managerid INTEGER
+	PRIMARY KEY (did)
+	FOREIGN KEY (managerid) REFERENCES Emp
+)
+
+3)
+
+CREATE TABLE Dept (
+	did INTEGER
+	budget REAL
+	managerid INTEGER NOT NULL
+	PRIMARY KEY (did)
+	FOREIGN KEY (managerid) REFERENCES Emp
+)
+
+4)
+
+INSERT INTO Emp (eid, ename age, salary)
+VALUES ('101', 'John Doe', '32', '15000')
+
+5)
+
+UPDATE Emp
+SET salary = salary * 1.1
+
+6)
+
+DELETE FROM Dept
+WHERE dname = 'Toy'
+
+Given  the referential integrity constraints I chose, everything that is linked to 'Toy' will also be delected. But in this schema there is no departments with the name 'Toy' so nothing will happen.

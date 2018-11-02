@@ -1,0 +1,91 @@
+Script started on Tue 09 Oct 2018 06:41:46 PM EDT
+wasajana@pe07:~/cs630/hw2$ [Kwasajana@pe07:~/cs630/hw2$ sqlplus wasajana/wasajana@//dbs3.cs.umb.edu/dbs3
+
+SQL*Plus: Release 12.1.0.2.0 Production on Tue Oct 9 18:42:28 2018
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Last Successful login time: Tue Oct 09 2018 18:19:43 -04:00
+
+Connected to:
+Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+
+SQL> select count (*) from yelp_db.yuser;
+
+  COUNT(*)
+----------
+   1183362
+
+SQL> select count (*) from yelp_db.business;
+
+  COUNT(*)
+----------
+    156638
+
+SQL> select count (*) from yelp_db.review;
+
+  COUNT(*)
+----------
+   4720472
+
+SQL> describe yelp_db.yuser;
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID					   NOT NULL VARCHAR2(22)
+ NAME						    VARCHAR2(255)
+ REVIEW_COUNT					    NUMBER(10)
+ YELPING_SINCE					    TIMESTAMP(0)
+ USEFUL 					    NUMBER(10)
+ FUNNY						    NUMBER(10)
+ COOL						    NUMBER(10)
+ FANS						    NUMBER(10)
+ AVERAGE_STARS					    BINARY_DOUBLE
+ COMPLIMENT_HOT 				    NUMBER(10)
+ COMPLIMENT_MORE				    NUMBER(10)
+ COMPLIMENT_PROFILE				    NUMBER(10)
+ COMPLIMENT_CUTE				    NUMBER(10)
+ COMPLIMENT_LIST				    NUMBER(10)
+ COMPLIMENT_NOTE				    NUMBER(10)
+ COMPLIMENT_PLAIN				    NUMBER(10)
+ COMPLIMENT_COOL				    NUMBER(10)
+ COMPLIMENT_FUNNY				    NUMBER(10)
+ COMPLIMENT_WRITER				    NUMBER(10)
+ COMPLIMENT_PHOTOS				    NUMBER(10)
+
+SQL> describe yelp_db.business;
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID					   NOT NULL VARCHAR2(22)
+ NAME						    VARCHAR2(255)
+ NEIGHBORHOOD					    VARCHAR2(255)
+ ADDRESS					    VARCHAR2(255)
+ CITY						    VARCHAR2(255)
+ STATE						    VARCHAR2(255)
+ POSTAL_CODE					    VARCHAR2(255)
+ LATITUDE					    BINARY_DOUBLE
+ LONGITUDE					    BINARY_DOUBLE
+ STARS						    BINARY_DOUBLE
+ REVIEW_COUNT					    NUMBER(10)
+ IS_OPEN					    NUMBER(3)
+
+SQL> describe yelp_db.review;
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID					   NOT NULL VARCHAR2(22)
+ STARS						    NUMBER(10)
+ REV_DATE					    TIMESTAMP(0)
+ TEXT						    CLOB
+ USEFUL 					    NUMBER(10)
+ FUNNY						    NUMBER(10)
+ COOL						    NUMBER(10)
+ BUSINESS_ID				   NOT NULL VARCHAR2(22)
+ USER_ID				   NOT NULL VARCHAR2(22)
+
+SQL> exit
+Disconnected from Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+wasajana@pe07:~/cs630/hw2$ exit
+exit
+
+Script done on Tue 09 Oct 2018 06:45:03 PM EDT
