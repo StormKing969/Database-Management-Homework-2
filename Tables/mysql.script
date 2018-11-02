@@ -1,0 +1,36 @@
+Script started on Fri 27 Jan 2017 03:57:26 PM EST
+eoneil@topcat:~/630/tables$ mysql -u eoneil1 -D eoneil1db < dropdb.sql
+eoneil@topcat:~/630/tables$ dbb[K[K[Ksh dbbook_mysql.sh
+This script assumes you have /home/eoneil/.my.cnf set up with your mysql password
+Enter your mysql username: eoneil1
+Enter your mysql database: eoneil1db
+
+Creating Tables. eoneil1 /home/eoneil
+Created Tables, next will load table student.
+Loading student
+Bulk Loading Data. This may take a few moments.
+Loading faculty
+Loading class
+Loading enrolled
+Loading emp
+Loading dept
+Loading works
+Loading parts
+Loading suppliers
+Loading catalog
+Loading aircraft
+Loading employees
+Loading flights
+Loading certified
+Loading sailors
+Loading boats
+Loading sailors
+--------------
+insert into class values ('Artificial Intelligence',null,'UP328',null)
+--------------
+
+Done. The sample data is now loaded in mysql.
+eoneil@topcat:~/630/tables$ exit
+exit
+
+Script done on Fri 27 Jan 2017 03:58:36 PM EST
